@@ -1,0 +1,55 @@
+table c_gst_mismatch
+	lineageTag: 5fd80ddf-9e6b-4dc2-aa5a-c8e4d4dc0b4f
+
+	column invoice_id
+		dataType: string
+		lineageTag: a8e44d82-d55e-47c2-b0db-c43806522678
+		summarizeBy: none
+		sourceColumn: invoice_id
+
+	column client_id
+		dataType: string
+		lineageTag: 3f2cca3c-13cb-4706-a23f-c20bb51a2f37
+		summarizeBy: none
+		sourceColumn: client_id
+
+	column invoice_date
+		dataType: dateTime
+		lineageTag: 73e1c70e-6455-47a5-a9c9-21b893238f85
+		summarizeBy: none
+		sourceColumn: invoice_date
+
+	column books_gst
+		dataType: double
+		lineageTag: 7105ae77-d3c0-411a-85d2-572cfa3acb19
+		summarizeBy: none
+		sourceColumn: books_gst
+
+	column gstr2b_gst
+		dataType: double
+		lineageTag: b49910b7-9d40-4711-97c2-c95111022385
+		summarizeBy: none
+		sourceColumn: gstr2b_gst
+
+	column diff
+		dataType: double
+		lineageTag: e6957d53-762c-47e1-b43d-557ecf743ee0
+		summarizeBy: none
+		sourceColumn: diff
+
+	column issue
+		dataType: string
+		lineageTag: 1b34f97c-9d81-47af-9195-5e3850ac2a25
+		summarizeBy: none
+		sourceColumn: issue
+
+	partition c_gst_mismatch = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DataFolder & "\c_gst_mismatch.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Hdr = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Hdr, {{"invoice_id", type text},{"client_id", type text},{"invoice_date", type datetime},{"books_gst", type number},{"gstr2b_gst", type number},{"diff", type number},{"issue", type text}}, "en-US")
+				in
+					Typed
+

@@ -1,0 +1,49 @@
+table c_unbilled
+	lineageTag: cee667db-d9be-441c-8d77-95d5dc2aa8b6
+
+	column booking_id
+		dataType: string
+		lineageTag: 57584533-ff36-4e4e-bce1-8a373b032fb5
+		summarizeBy: none
+		sourceColumn: booking_id
+
+	column client_id
+		dataType: string
+		lineageTag: cdfa1b06-148f-411d-af61-2fc3d74080c8
+		summarizeBy: none
+		sourceColumn: client_id
+
+	column checkout
+		dataType: dateTime
+		lineageTag: 7a80dbdd-f508-44d4-b976-44e6ea7ba1eb
+		summarizeBy: none
+		sourceColumn: checkout
+
+	column amount
+		dataType: double
+		lineageTag: a3c7609e-7e55-431d-80c7-a4366eb3d439
+		summarizeBy: none
+		sourceColumn: amount
+
+	column est_total
+		dataType: double
+		lineageTag: 95d7aace-75c0-47ea-8b1e-0156902a23cd
+		summarizeBy: none
+		sourceColumn: est_total
+
+	column days_unbilled
+		dataType: int64
+		lineageTag: de6f6cea-7aa7-4a7c-a76d-5104fc375a43
+		summarizeBy: none
+		sourceColumn: days_unbilled
+
+	partition c_unbilled = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DataFolder & "\c_unbilled.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Hdr = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Hdr, {{"booking_id", type text},{"client_id", type text},{"checkout", type datetime},{"amount", type number},{"est_total", type number},{"days_unbilled", Int64.Type}}, "en-US")
+				in
+					Typed
+

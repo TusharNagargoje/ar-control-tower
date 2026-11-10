@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "AR_Control_Tower"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "29274c9d-d801-477d-8a79-1ed8f62ce07b"
+  }
+}

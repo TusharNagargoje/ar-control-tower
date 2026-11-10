@@ -1,0 +1,25 @@
+table ai_insights
+	lineageTag: 1280af2b-3a05-4389-aceb-200a1fbd4f8c
+
+	column kind
+		dataType: string
+		lineageTag: 32b4145d-9fcf-4c79-a5e3-306d24687419
+		summarizeBy: none
+		sourceColumn: kind
+
+	column text
+		dataType: string
+		lineageTag: c96a9c8d-16d1-4fea-9fd6-12d64bb2fb34
+		summarizeBy: none
+		sourceColumn: text
+
+	partition ai_insights = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DataFolder & "\ai_insights.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Hdr = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Hdr, {{"kind", type text},{"text", type text}}, "en-US")
+				in
+					Typed
+

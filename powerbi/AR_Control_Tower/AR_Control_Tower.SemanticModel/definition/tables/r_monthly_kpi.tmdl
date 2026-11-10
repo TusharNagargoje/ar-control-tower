@@ -1,0 +1,49 @@
+table r_monthly_kpi
+	lineageTag: 778a4eb1-369b-454f-b7ec-751f990fa10d
+
+	column mth
+		dataType: dateTime
+		lineageTag: e1af1ffc-c94b-43fd-8ec5-7670af41b32d
+		summarizeBy: none
+		sourceColumn: mth
+
+	column billed
+		dataType: double
+		lineageTag: d36abd08-481a-45dd-b976-99671681dde3
+		summarizeBy: none
+		sourceColumn: billed
+
+	column collected
+		dataType: double
+		lineageTag: f2693fdd-87ab-4624-890e-ca1c955b13c1
+		summarizeBy: none
+		sourceColumn: collected
+
+	column closing_ar
+		dataType: double
+		lineageTag: c3a7c207-4013-4523-81e6-89481418876e
+		summarizeBy: none
+		sourceColumn: closing_ar
+
+	column collection_efficiency
+		dataType: double
+		lineageTag: 57b823af-5883-4218-972b-9b68551f2f21
+		summarizeBy: none
+		sourceColumn: collection_efficiency
+
+	column dso_days
+		dataType: double
+		lineageTag: 1f7627de-1815-4749-b88d-3c72e8befc70
+		summarizeBy: none
+		sourceColumn: dso_days
+
+	partition r_monthly_kpi = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DataFolder & "\r_monthly_kpi.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Hdr = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Hdr, {{"mth", type datetime},{"billed", type number},{"collected", type number},{"closing_ar", type number},{"collection_efficiency", type number},{"dso_days", type number}}, "en-US")
+				in
+					Typed
+

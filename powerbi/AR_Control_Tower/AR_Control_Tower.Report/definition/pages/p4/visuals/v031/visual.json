@@ -1,0 +1,108 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "v031",
+  "position": {
+    "x": 660,
+    "y": 130,
+    "width": 600,
+    "height": 270,
+    "z": 31
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "c_duplicate_invoices"
+                    }
+                  },
+                  "Property": "booking_id"
+                }
+              },
+              "queryRef": "c_duplicate_invoices.booking_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "c_duplicate_invoices"
+                    }
+                  },
+                  "Property": "client_id"
+                }
+              },
+              "queryRef": "c_duplicate_invoices.client_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "c_duplicate_invoices"
+                    }
+                  },
+                  "Property": "n_invoices"
+                }
+              },
+              "queryRef": "c_duplicate_invoices.n_invoices"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "c_duplicate_invoices"
+                    }
+                  },
+                  "Property": "overbilled"
+                }
+              },
+              "queryRef": "c_duplicate_invoices.overbilled"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Duplicate invoices'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E5E7EB'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

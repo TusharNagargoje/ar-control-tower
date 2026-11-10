@@ -1,0 +1,121 @@
+table v_invoice_status
+	lineageTag: aade78f5-ef85-4edd-bfa8-db5b60d0886b
+
+	column invoice_id
+		dataType: string
+		lineageTag: 077a93bb-8f77-49f5-ac41-155c58e0da29
+		summarizeBy: none
+		sourceColumn: invoice_id
+
+	column booking_id
+		dataType: string
+		lineageTag: 0a66f445-aec1-4583-b9c7-48465fb38a8b
+		summarizeBy: none
+		sourceColumn: booking_id
+
+	column client_id
+		dataType: string
+		lineageTag: 17a74da0-37f1-4b0e-a72e-d631b0e44fb6
+		summarizeBy: none
+		sourceColumn: client_id
+
+	column invoice_date
+		dataType: dateTime
+		lineageTag: 0171564e-8396-405d-a642-7192b05e6822
+		summarizeBy: none
+		sourceColumn: invoice_date
+
+	column due_date
+		dataType: dateTime
+		lineageTag: 1b6b45fe-6fb3-4174-a27f-2e3db62a09d2
+		summarizeBy: none
+		sourceColumn: due_date
+
+	column taxable
+		dataType: double
+		lineageTag: 7c8f09dc-9e35-4d7e-9199-d2e19a11c1fb
+		summarizeBy: none
+		sourceColumn: taxable
+
+	column gst
+		dataType: double
+		lineageTag: 5d13b2f5-fb17-42a1-9a8f-8998b96241e3
+		summarizeBy: none
+		sourceColumn: gst
+
+	column total
+		dataType: double
+		lineageTag: b4c469da-8fcf-4d87-92b9-816739fc5382
+		summarizeBy: none
+		sourceColumn: total
+
+	column gstin
+		dataType: string
+		lineageTag: 2111192d-af1a-4d51-b2e7-378431d9c699
+		summarizeBy: none
+		sourceColumn: gstin
+
+	column client_name
+		dataType: string
+		lineageTag: 53e2c703-d2ff-437f-8ae6-3ab12507bc68
+		summarizeBy: none
+		sourceColumn: client_name
+
+	column industry
+		dataType: string
+		lineageTag: 02814d7b-5243-43c6-b094-718a420344c6
+		summarizeBy: none
+		sourceColumn: industry
+
+	column relationship_manager
+		dataType: string
+		lineageTag: 1f0ed70d-08cf-4a8e-a64e-ac51c9e5496b
+		summarizeBy: none
+		sourceColumn: relationship_manager
+
+	column payment_terms_days
+		dataType: int64
+		lineageTag: cec497ed-e27f-4786-84a4-1f342092252b
+		summarizeBy: none
+		sourceColumn: payment_terms_days
+
+	column paid_amt
+		dataType: double
+		lineageTag: 93637744-2cba-4093-aade-9a5c54ba2518
+		summarizeBy: none
+		sourceColumn: paid_amt
+
+	column cn_amt
+		dataType: double
+		lineageTag: a39a90f8-dea6-4433-bcdb-01b8b3edc189
+		summarizeBy: none
+		sourceColumn: cn_amt
+
+	column last_pay
+		dataType: dateTime
+		lineageTag: ae513311-3857-4fe4-b993-edf353616b9a
+		summarizeBy: none
+		sourceColumn: last_pay
+
+	column outstanding
+		dataType: double
+		lineageTag: 8a1d3486-132c-4513-9096-24df56cbb9b4
+		summarizeBy: none
+		sourceColumn: outstanding
+
+	column days_past_due
+		dataType: int64
+		lineageTag: cfed51d4-46b3-450b-8788-efed4a92ca26
+		summarizeBy: none
+		sourceColumn: days_past_due
+
+	partition v_invoice_status = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DataFolder & "\v_invoice_status.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Hdr = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Hdr, {{"invoice_id", type text},{"booking_id", type text},{"client_id", type text},{"invoice_date", type datetime},{"due_date", type datetime},{"taxable", type number},{"gst", type number},{"total", type number},{"gstin", type text},{"client_name", type text},{"industry", type text},{"relationship_manager", type text},{"payment_terms_days", Int64.Type},{"paid_amt", type number},{"cn_amt", type number},{"last_pay", type datetime},{"outstanding", type number},{"days_past_due", Int64.Type}}, "en-US")
+				in
+					Typed
+

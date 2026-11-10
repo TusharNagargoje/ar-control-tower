@@ -1,0 +1,43 @@
+table c_unapplied
+	lineageTag: 0b51bce9-ddea-4637-9045-127cac2e8a00
+
+	column payment_id
+		dataType: string
+		lineageTag: 345d63db-6950-46af-9f69-7978354f6c04
+		summarizeBy: none
+		sourceColumn: payment_id
+
+	column client_id
+		dataType: string
+		lineageTag: aec6b43d-878a-41d3-a00a-5bc16b054d2b
+		summarizeBy: none
+		sourceColumn: client_id
+
+	column pay_date
+		dataType: dateTime
+		lineageTag: 8ad73e44-79d9-4182-bf52-d546b58b4514
+		summarizeBy: none
+		sourceColumn: pay_date
+
+	column amount
+		dataType: double
+		lineageTag: efa7c7e7-ebb7-408d-8d04-d5d7a9599ca3
+		summarizeBy: none
+		sourceColumn: amount
+
+	column days_unapplied
+		dataType: int64
+		lineageTag: 7969c719-b3fb-4b1c-abeb-654b55c4b116
+		summarizeBy: none
+		sourceColumn: days_unapplied
+
+	partition c_unapplied = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DataFolder & "\c_unapplied.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Hdr = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Hdr, {{"payment_id", type text},{"client_id", type text},{"pay_date", type datetime},{"amount", type number},{"days_unapplied", Int64.Type}}, "en-US")
+				in
+					Typed
+

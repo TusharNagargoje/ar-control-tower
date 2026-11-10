@@ -1,0 +1,134 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "v023",
+  "position": {
+    "x": 660,
+    "y": 230,
+    "width": 600,
+    "height": 470,
+    "z": 23
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ml_open_invoice_scores"
+                    }
+                  },
+                  "Property": "invoice_id"
+                }
+              },
+              "queryRef": "ml_open_invoice_scores.invoice_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ml_open_invoice_scores"
+                    }
+                  },
+                  "Property": "client_id"
+                }
+              },
+              "queryRef": "ml_open_invoice_scores.client_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ml_open_invoice_scores"
+                    }
+                  },
+                  "Property": "outstanding"
+                }
+              },
+              "queryRef": "ml_open_invoice_scores.outstanding"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ml_open_invoice_scores"
+                    }
+                  },
+                  "Property": "p_late30"
+                }
+              },
+              "queryRef": "ml_open_invoice_scores.p_late30"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ml_open_invoice_scores"
+                    }
+                  },
+                  "Property": "expected_loss_30d"
+                }
+              },
+              "queryRef": "ml_open_invoice_scores.expected_loss_30d"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "ml_open_invoice_scores"
+                    }
+                  },
+                  "Property": "priority"
+                }
+              },
+              "queryRef": "ml_open_invoice_scores.priority"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Call list'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E5E7EB'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

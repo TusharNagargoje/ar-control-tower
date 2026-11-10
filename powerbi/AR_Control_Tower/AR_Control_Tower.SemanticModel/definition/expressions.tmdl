@@ -1,0 +1,7 @@
+expression DataFolder = "C:\Users\TUSHAR\OneDrive\Desktop\Agentic AI server\ar-control-tower\ar-control-tower\powerbi\data" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 84f5e11f-4ad1-4a94-9cf6-b8a3c94f111b
+
+	annotation PBI_ResultType = Text
+
+	annotation PBI_NavigationStepName = Navigation
+

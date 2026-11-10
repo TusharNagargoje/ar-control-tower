@@ -1,0 +1,121 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/1.0.0/schema.json",
+  "name": "v032",
+  "position": {
+    "x": 20,
+    "y": 420,
+    "width": 620,
+    "height": 280,
+    "z": 32
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "c_gst_mismatch"
+                    }
+                  },
+                  "Property": "invoice_id"
+                }
+              },
+              "queryRef": "c_gst_mismatch.invoice_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "c_gst_mismatch"
+                    }
+                  },
+                  "Property": "books_gst"
+                }
+              },
+              "queryRef": "c_gst_mismatch.books_gst"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "c_gst_mismatch"
+                    }
+                  },
+                  "Property": "gstr2b_gst"
+                }
+              },
+              "queryRef": "c_gst_mismatch.gstr2b_gst"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "c_gst_mismatch"
+                    }
+                  },
+                  "Property": "diff"
+                }
+              },
+              "queryRef": "c_gst_mismatch.diff"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "c_gst_mismatch"
+                    }
+                  },
+                  "Property": "issue"
+                }
+              },
+              "queryRef": "c_gst_mismatch.issue"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'GST mismatches'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E5E7EB'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

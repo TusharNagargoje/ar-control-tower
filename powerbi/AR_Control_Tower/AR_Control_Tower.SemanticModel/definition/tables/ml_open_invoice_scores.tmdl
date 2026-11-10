@@ -1,0 +1,61 @@
+table ml_open_invoice_scores
+	lineageTag: 9f432d02-468f-4f5c-9501-d81aebbd89da
+
+	column invoice_id
+		dataType: string
+		lineageTag: e9129330-ee71-44eb-bfb7-2fe9e37365ee
+		summarizeBy: none
+		sourceColumn: invoice_id
+
+	column client_id
+		dataType: string
+		lineageTag: ca0f1e00-ffd7-48e8-b3f8-c97113269af7
+		summarizeBy: none
+		sourceColumn: client_id
+
+	column due_date
+		dataType: dateTime
+		lineageTag: 35eef68b-11a8-4532-94fd-8fc5e1e3a07d
+		summarizeBy: none
+		sourceColumn: due_date
+
+	column outstanding
+		dataType: double
+		lineageTag: 4f31b4c4-e1fd-47bb-9b3e-40e46d87128b
+		summarizeBy: none
+		sourceColumn: outstanding
+
+	column client_avg_delay
+		dataType: double
+		lineageTag: 330e00cd-a049-41ed-8064-25d3807d6d4a
+		summarizeBy: none
+		sourceColumn: client_avg_delay
+
+	column p_late30
+		dataType: double
+		lineageTag: 14b627fc-c91e-4b7a-a0a7-1bc612c1dd67
+		summarizeBy: none
+		sourceColumn: p_late30
+
+	column expected_loss_30d
+		dataType: double
+		lineageTag: ba5cf58b-4e2b-4697-8afc-130ef7f997ac
+		summarizeBy: none
+		sourceColumn: expected_loss_30d
+
+	column priority
+		dataType: string
+		lineageTag: d54df207-4114-4280-b563-8a7ce1b5d02a
+		summarizeBy: none
+		sourceColumn: priority
+
+	partition ml_open_invoice_scores = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DataFolder & "\ml_open_invoice_scores.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Hdr = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Hdr, {{"invoice_id", type text},{"client_id", type text},{"due_date", type datetime},{"outstanding", type number},{"client_avg_delay", type number},{"p_late30", type number},{"expected_loss_30d", type number},{"priority", type text}}, "en-US")
+				in
+					Typed
+

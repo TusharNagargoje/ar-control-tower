@@ -1,0 +1,49 @@
+table c_duplicate_invoices
+	lineageTag: 4483cb32-a87a-4fe3-b41f-0c1d398909b1
+
+	column booking_id
+		dataType: string
+		lineageTag: 46036ce1-221f-43f2-bc47-5bef3b796725
+		summarizeBy: none
+		sourceColumn: booking_id
+
+	column client_id
+		dataType: string
+		lineageTag: 6d4356e2-667d-4498-8d01-b335fa048de6
+		summarizeBy: none
+		sourceColumn: client_id
+
+	column n_invoices
+		dataType: int64
+		lineageTag: 62b1369f-8ee5-416b-ab46-b903ef793380
+		summarizeBy: none
+		sourceColumn: n_invoices
+
+	column total_billed
+		dataType: double
+		lineageTag: 22e08d3b-a9bc-4c8e-b0ae-a60aa43786d9
+		summarizeBy: none
+		sourceColumn: total_billed
+
+	column overbilled
+		dataType: double
+		lineageTag: dc9ca4bb-5063-4e5f-b25d-fbe6a1b85a8c
+		summarizeBy: none
+		sourceColumn: overbilled
+
+	column invoice_ids
+		dataType: string
+		lineageTag: 38df6385-c835-4475-9ecf-15403b07ae30
+		summarizeBy: none
+		sourceColumn: invoice_ids
+
+	partition c_duplicate_invoices = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DataFolder & "\c_duplicate_invoices.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Hdr = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Hdr, {{"booking_id", type text},{"client_id", type text},{"n_invoices", Int64.Type},{"total_billed", type number},{"overbilled", type number},{"invoice_ids", type text}}, "en-US")
+				in
+					Typed
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "AR_Control_Tower"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "90bed9f6-0fbd-453f-a9b1-08d54f24f1db"
+  }
+}

@@ -1,0 +1,86 @@
+table _Measures
+	lineageTag: 014dae46-3944-4e2d-8125-ac8d722bb55d
+
+	measure 'Total Billed' = SUM(v_invoice_status[total])
+		formatString: #,0
+		lineageTag: dad570e9-fda6-475b-98bb-24e542535896
+
+	measure 'Total Outstanding' = SUM(v_invoice_status[outstanding])
+		formatString: #,0
+		lineageTag: 5e9374d0-4da4-4eb6-8e41-4ee98e26cdfc
+
+	measure 'Overdue AR' = CALCULATE([Total Outstanding], v_invoice_status[days_past_due] > 0)
+		formatString: #,0
+		lineageTag: 249ddc27-facd-49f3-b24a-c160339f0dca
+
+	measure 'Overdue %' = DIVIDE([Overdue AR], [Total Outstanding])
+		formatString: 0.0%
+		lineageTag: 73458907-970e-4753-93ae-05fd3a5bab21
+
+	measure 'AR 90+' = CALCULATE([Total Outstanding], v_invoice_status[days_past_due] > 90)
+		formatString: #,0
+		lineageTag: 08bd3e37-6855-4854-8085-6f522da42406
+
+	measure Collected = SUM(r_monthly_kpi[collected])
+		formatString: #,0
+		lineageTag: 1ea96b69-3e9a-4a1f-b3e0-519fd743d975
+
+	measure 'Collection Eff %' = DIVIDE(SUM(r_monthly_kpi[collected]), SUM(r_monthly_kpi[billed]))
+		formatString: 0.0%
+		lineageTag: d1b71811-ce2a-4c54-a1ac-3791e57cc5a5
+
+	measure 'DSO (days)' = AVERAGE(r_monthly_kpi[dso_days])
+		formatString: 0.0
+		lineageTag: c35fb369-8d49-421c-9de8-6b28a4effc2a
+
+	measure 'Unbilled Revenue' = SUM(c_unbilled[est_total])
+		formatString: #,0
+		lineageTag: e72fe9cf-2cb4-4668-992e-825f95b6fe23
+
+	measure 'Unapplied Cash' = SUM(c_unapplied[amount])
+		formatString: #,0
+		lineageTag: 72c538a2-8fe6-4a14-a0e2-17f6aad554c8
+
+	measure 'Net AR after unapplied' = [Total Outstanding] - [Unapplied Cash]
+		formatString: #,0
+		lineageTag: feb0e13a-244f-4ca2-b0d9-9330374d9175
+
+	measure 'Credit Breach Clients' = CALCULATE(DISTINCTCOUNT(r_credit_util[client_id]), r_credit_util[status] = "BREACH")
+		formatString: 0
+		lineageTag: 3a7a6f13-13fb-446c-be91-7444029d37ed
+
+	measure 'Duplicate Overbilled' = SUM(c_duplicate_invoices[overbilled])
+		formatString: #,0
+		lineageTag: 9f43d705-5d5a-46be-a303-6b7f5f45e6af
+
+	measure 'Duplicate Bookings' = COUNTROWS(c_duplicate_invoices)
+		formatString: #,0
+		lineageTag: 8c6d6459-a9ee-4786-b20e-b36d5736cb70
+
+	measure 'GST Exceptions' = COUNTROWS(c_gst_mismatch)
+		formatString: #,0
+		lineageTag: 43bdf764-d78e-4bd9-85b3-df9e8aeae776
+
+	measure 'CN Exceptions' = COUNTROWS(c_credit_note_exceptions)
+		formatString: #,0
+		lineageTag: 23611c8c-a0ea-4165-9ca2-521b0176b101
+
+	measure 'Expected 30d Loss' = SUM(ml_open_invoice_scores[expected_loss_30d])
+		formatString: #,0
+		lineageTag: 1f4a9779-e246-4d5a-bc65-d95f4daa7e51
+
+	measure 'Control Score' = 100 - 100 * DIVIDE([GST Exceptions] + [CN Exceptions] + [Duplicate Bookings], DISTINCTCOUNT(v_invoice_status[invoice_id])) * 10
+		formatString: 0.0
+		lineageTag: 3f707307-d5ec-453f-8cbe-bd3980201c98
+
+	column Value
+		dataType: int64
+		isHidden
+		lineageTag: 694b4db1-f454-44c1-bbda-726dddea7d53
+		summarizeBy: none
+		sourceColumn: [Value]
+
+	partition _Measures = calculated
+		mode: import
+		source = {1}
+

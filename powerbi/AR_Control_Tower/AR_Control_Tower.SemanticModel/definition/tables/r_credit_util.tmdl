@@ -1,0 +1,49 @@
+table r_credit_util
+	lineageTag: dda8b753-42b0-4da5-a04b-8d2d2006f2b9
+
+	column client_id
+		dataType: string
+		lineageTag: d60c9e2a-7374-404b-a215-1e03490e987a
+		summarizeBy: none
+		sourceColumn: client_id
+
+	column client_name
+		dataType: string
+		lineageTag: 830f4c22-2861-4b47-a2d5-c1722dd058c2
+		summarizeBy: none
+		sourceColumn: client_name
+
+	column credit_limit
+		dataType: double
+		lineageTag: 5aa2b733-fa11-4508-a247-12bd0188b07c
+		summarizeBy: none
+		sourceColumn: credit_limit
+
+	column exposure
+		dataType: double
+		lineageTag: 9ae9a5c6-fb22-40c8-b31e-df9700dce10c
+		summarizeBy: none
+		sourceColumn: exposure
+
+	column utilisation
+		dataType: double
+		lineageTag: d1fde2a7-da1c-4021-8d33-4562786335d8
+		summarizeBy: none
+		sourceColumn: utilisation
+
+	column status
+		dataType: string
+		lineageTag: 2329d4c9-b803-42ca-b5d1-30b079cc0cb8
+		summarizeBy: none
+		sourceColumn: status
+
+	partition r_credit_util = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DataFolder & "\r_credit_util.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Hdr = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Hdr, {{"client_id", type text},{"client_name", type text},{"credit_limit", type number},{"exposure", type number},{"utilisation", type number},{"status", type text}}, "en-US")
+				in
+					Typed
+

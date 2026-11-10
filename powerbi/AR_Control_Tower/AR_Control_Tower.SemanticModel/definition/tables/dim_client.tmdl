@@ -1,0 +1,71 @@
+table dim_client
+	lineageTag: e399ba2d-2d93-4cc6-a02a-db84d0d23171
+
+	column client_id
+		dataType: string
+		lineageTag: 9ba557b7-0ceb-4429-8fac-b260c3ec1b0f
+		summarizeBy: none
+		sourceColumn: client_id
+
+	column client_name
+		dataType: string
+		lineageTag: 277c7dba-cd1c-4246-9591-e0c4ed9e8c7f
+		summarizeBy: none
+		sourceColumn: client_name
+
+	column industry
+		dataType: string
+		lineageTag: 42faac54-cd1d-40fa-b68b-8945cf67920e
+		summarizeBy: none
+		sourceColumn: industry
+
+	column state
+		dataType: string
+		lineageTag: d4ea165e-51dd-4252-bc38-de21b71cc9a8
+		summarizeBy: none
+		sourceColumn: state
+
+	column payment_terms_days
+		dataType: int64
+		lineageTag: 878b2eda-b06c-4375-86de-455a5d51cffb
+		summarizeBy: none
+		sourceColumn: payment_terms_days
+
+	column relationship_manager
+		dataType: string
+		lineageTag: 9a568151-ba1c-40bd-8890-bccfcca903e7
+		summarizeBy: none
+		sourceColumn: relationship_manager
+
+	column monthly_bookings
+		dataType: int64
+		lineageTag: 892ba790-0d90-4c17-9562-77c17158bad7
+		summarizeBy: none
+		sourceColumn: monthly_bookings
+
+	column credit_limit
+		dataType: double
+		lineageTag: 3d6b94eb-fb57-4ad3-8865-80a620bba832
+		summarizeBy: none
+		sourceColumn: credit_limit
+
+	column gstin
+		dataType: string
+		lineageTag: 1a31c368-eb28-4452-86dc-beb8bcb3c58c
+		summarizeBy: none
+		sourceColumn: gstin
+
+	partition dim_client = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DataFolder & "\dim_client.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Hdr = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Hdr, {{"client_id", type text},{"client_name", type text},{"industry", type text},{"state", type text},{"payment_terms_days", Int64.Type},{"relationship_manager", type text},{"monthly_bookings", Int64.Type},{"credit_limit", type number},{"gstin", type text}}, "en-US")
+				in
+					Typed
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+

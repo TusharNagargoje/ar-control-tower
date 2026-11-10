@@ -1,0 +1,37 @@
+table c_completeness
+	lineageTag: f313cd4f-b528-4672-8ad5-460f8a1e5005
+
+	column mth
+		dataType: dateTime
+		lineageTag: 3e24dc2d-d939-4124-ae5e-46ef509b7e43
+		summarizeBy: none
+		sourceColumn: mth
+
+	column completed_bookings
+		dataType: int64
+		lineageTag: a59572cd-c9a7-4795-afd4-5e5404f0f815
+		summarizeBy: none
+		sourceColumn: completed_bookings
+
+	column invoiced
+		dataType: int64
+		lineageTag: 26c6fc03-cd2a-46ce-9eb1-43c3b567aabc
+		summarizeBy: none
+		sourceColumn: invoiced
+
+	column completeness
+		dataType: double
+		lineageTag: 6f37f1fe-8f20-43d2-9d6a-f320d0426faa
+		summarizeBy: none
+		sourceColumn: completeness
+
+	partition c_completeness = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DataFolder & "\c_completeness.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Hdr = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Hdr, {{"mth", type datetime},{"completed_bookings", Int64.Type},{"invoiced", Int64.Type},{"completeness", type number}}, "en-US")
+				in
+					Typed
+

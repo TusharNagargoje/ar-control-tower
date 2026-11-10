@@ -1,0 +1,28 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-IN
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["dim_client","v_invoice_status","r_ar_ageing","r_monthly_kpi","r_credit_util","c_unbilled","c_unapplied","c_duplicate_invoices","c_gst_mismatch","c_credit_note_exceptions","c_completeness","ml_open_invoice_scores","ai_insights","DataFolder"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table _Measures
+ref table dim_client
+ref table v_invoice_status
+ref table r_ar_ageing
+ref table r_monthly_kpi
+ref table r_credit_util
+ref table c_unbilled
+ref table c_unapplied
+ref table c_duplicate_invoices
+ref table c_gst_mismatch
+ref table c_credit_note_exceptions
+ref table c_completeness
+ref table ml_open_invoice_scores
+ref table ai_insights
+

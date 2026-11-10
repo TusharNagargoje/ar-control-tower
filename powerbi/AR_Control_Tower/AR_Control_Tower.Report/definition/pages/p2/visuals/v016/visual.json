@@ -1,0 +1,276 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "v016",
+  "position": {
+    "x": 20,
+    "y": 130,
+    "z": 16,
+    "height": 300,
+    "width": 620
+  },
+  "visual": {
+    "visualType": "stackedColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "r_ar_ageing"
+                    }
+                  },
+                  "Property": "relationship_manager"
+                }
+              },
+              "queryRef": "r_ar_ageing.relationship_manager"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "r_ar_ageing"
+                        }
+                      },
+                      "Property": "current_bucket"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "r_ar_ageing.current_bucket"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "r_ar_ageing"
+                        }
+                      },
+                      "Property": "d1_30"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "r_ar_ageing.d1_30"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "r_ar_ageing"
+                        }
+                      },
+                      "Property": "d31_60"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "r_ar_ageing.d31_60"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "r_ar_ageing"
+                        }
+                      },
+                      "Property": "d61_90"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "r_ar_ageing.d61_90"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "r_ar_ageing"
+                        }
+                      },
+                      "Property": "d90_plus"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "r_ar_ageing.d90_plus"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Ageing by RM'"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#E5E7EB'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "193dfa8f225c008d0579",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "r_ar_ageing"
+              }
+            },
+            "Property": "relationship_manager"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "359d44d81b243a9529de",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "r_ar_ageing"
+                  }
+                },
+                "Property": "current_bucket"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "664e1fe112c11cdbd066",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "r_ar_ageing"
+                  }
+                },
+                "Property": "d1_30"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "69b567de46b738d52936",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "r_ar_ageing"
+                  }
+                },
+                "Property": "d31_60"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "38ea58a1875dc2e57d5c",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "r_ar_ageing"
+                  }
+                },
+                "Property": "d61_90"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "fc0d6180e24d3041247a",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "r_ar_ageing"
+                  }
+                },
+                "Property": "d90_plus"
+              }
+            },
+            "Function": 0
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

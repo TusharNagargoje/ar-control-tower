@@ -1,0 +1,36 @@
+relationship rel_0
+	fromColumn: v_invoice_status.client_id
+	toColumn: dim_client.client_id
+
+relationship rel_1
+	fromColumn: r_ar_ageing.client_id
+	toColumn: dim_client.client_id
+
+relationship rel_2
+	fromColumn: r_credit_util.client_id
+	toColumn: dim_client.client_id
+
+relationship rel_3
+	fromColumn: c_unbilled.client_id
+	toColumn: dim_client.client_id
+
+relationship rel_4
+	fromColumn: c_unapplied.client_id
+	toColumn: dim_client.client_id
+
+relationship rel_5
+	fromColumn: c_duplicate_invoices.client_id
+	toColumn: dim_client.client_id
+
+relationship rel_6
+	fromColumn: c_gst_mismatch.client_id
+	toColumn: dim_client.client_id
+
+relationship rel_7
+	fromColumn: c_credit_note_exceptions.client_id
+	toColumn: dim_client.client_id
+
+relationship rel_8
+	fromColumn: ml_open_invoice_scores.client_id
+	toColumn: dim_client.client_id
+

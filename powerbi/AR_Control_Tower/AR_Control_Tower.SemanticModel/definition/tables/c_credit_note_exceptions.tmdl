@@ -1,0 +1,67 @@
+table c_credit_note_exceptions
+	lineageTag: c5002671-c646-498e-a378-eb6f2dacbc5b
+
+	column cn_id
+		dataType: string
+		lineageTag: 28dd48c3-80cd-4625-906f-1fc2a424d320
+		summarizeBy: none
+		sourceColumn: cn_id
+
+	column invoice_id
+		dataType: string
+		lineageTag: c40a807c-198d-4527-a96e-dcfb73b1aaa7
+		summarizeBy: none
+		sourceColumn: invoice_id
+
+	column client_id
+		dataType: string
+		lineageTag: 8128967c-aea9-4e39-8833-082752b6de84
+		summarizeBy: none
+		sourceColumn: client_id
+
+	column cn_amount
+		dataType: double
+		lineageTag: 002a0c94-111d-474d-8b04-6663955d5f04
+		summarizeBy: none
+		sourceColumn: cn_amount
+
+	column inv_total
+		dataType: double
+		lineageTag: 4ba2b7da-55af-487f-886e-653d409e33b6
+		summarizeBy: none
+		sourceColumn: inv_total
+
+	column pct_of_invoice
+		dataType: double
+		lineageTag: f5bf3c42-3596-4ffe-bd19-71323eecc3b4
+		summarizeBy: none
+		sourceColumn: pct_of_invoice
+
+	column approver
+		dataType: string
+		lineageTag: 6cbddd14-c384-4360-acf5-0ab87c465d04
+		summarizeBy: none
+		sourceColumn: approver
+
+	column days_after_invoice
+		dataType: int64
+		lineageTag: f8c56812-4289-4f19-a33a-bfcae14e652f
+		summarizeBy: none
+		sourceColumn: days_after_invoice
+
+	column reasons
+		dataType: string
+		lineageTag: e919545c-5205-4518-81e7-bcab99496aa7
+		summarizeBy: none
+		sourceColumn: reasons
+
+	partition c_credit_note_exceptions = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DataFolder & "\c_credit_note_exceptions.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Hdr = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Hdr, {{"cn_id", type text},{"invoice_id", type text},{"client_id", type text},{"cn_amount", type number},{"inv_total", type number},{"pct_of_invoice", type number},{"approver", type text},{"days_after_invoice", Int64.Type},{"reasons", type text}}, "en-US")
+				in
+					Typed
+

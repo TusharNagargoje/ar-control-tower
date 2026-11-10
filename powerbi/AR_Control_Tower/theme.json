@@ -1,0 +1,5 @@
+{"name":"ControlTowerDark","dataColors":["#22D3EE","#A78BFA","#F472B6","#FBBF24","#34D399","#F87171","#60A5FA","#FB923C"],
+ "background":"#0B1020","foreground":"#E5E7EB","tableAccent":"#22D3EE",
+ "visualStyles":{"*":{"*":{"background":[{"color":{"solid":{"color":"#131A2E"}},"transparency":0}],
+ "border":[{"show":true,"color":{"solid":{"color":"#24304F"}},"radius":10}],
+ "title":[{"fontColor":{"solid":{"color":"#E5E7EB"}},"fontSize":12}]}}}}

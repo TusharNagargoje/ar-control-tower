@@ -1,0 +1,73 @@
+table r_ar_ageing
+	lineageTag: 6d69f206-61eb-4b96-b8e6-d77bb2a79915
+
+	column client_id
+		dataType: string
+		lineageTag: d3244fd1-45fd-49f8-a9d2-77dc9242cebc
+		summarizeBy: none
+		sourceColumn: client_id
+
+	column client_name
+		dataType: string
+		lineageTag: b3e091fa-b301-4ffb-ab7a-c46759bb80f2
+		summarizeBy: none
+		sourceColumn: client_name
+
+	column industry
+		dataType: string
+		lineageTag: 2e549b06-4a80-4bad-bf48-3c2c910f95a5
+		summarizeBy: none
+		sourceColumn: industry
+
+	column relationship_manager
+		dataType: string
+		lineageTag: abe376d1-ac42-4805-bb40-d4942c778e2e
+		summarizeBy: none
+		sourceColumn: relationship_manager
+
+	column current_bucket
+		dataType: double
+		lineageTag: a68dc7b2-2a24-4e0e-9f75-c9a477a9f192
+		summarizeBy: none
+		sourceColumn: current_bucket
+
+	column d1_30
+		dataType: double
+		lineageTag: c88e8120-0581-4d0b-b281-9fff318ac13b
+		summarizeBy: none
+		sourceColumn: d1_30
+
+	column d31_60
+		dataType: double
+		lineageTag: 0ee98f2a-9122-48b9-a1fc-1cbf66f017c3
+		summarizeBy: none
+		sourceColumn: d31_60
+
+	column d61_90
+		dataType: double
+		lineageTag: 47cf44fb-7740-43b5-aa95-5f6d69ebf181
+		summarizeBy: none
+		sourceColumn: d61_90
+
+	column d90_plus
+		dataType: double
+		lineageTag: 457ac434-2ae0-485a-a60e-a432c2c9b4d7
+		summarizeBy: none
+		sourceColumn: d90_plus
+
+	column total_outstanding
+		dataType: double
+		lineageTag: a16dcca6-ff06-4052-935f-6d793ac4b330
+		summarizeBy: none
+		sourceColumn: total_outstanding
+
+	partition r_ar_ageing = m
+		mode: import
+		source =
+				let
+					Source = Csv.Document(File.Contents(DataFolder & "\r_ar_ageing.csv"), [Delimiter=",", Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+					Hdr = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+					Typed = Table.TransformColumnTypes(Hdr, {{"client_id", type text},{"client_name", type text},{"industry", type text},{"relationship_manager", type text},{"current_bucket", type number},{"d1_30", type number},{"d31_60", type number},{"d61_90", type number},{"d90_plus", type number},{"total_outstanding", type number}}, "en-US")
+				in
+					Typed
+
